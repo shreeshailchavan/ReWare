@@ -2,11 +2,16 @@
 import { dbPostgres } from '@/lib/dbPostgres'
 import bcrypt from 'bcryptjs'
 
-export async function registerUser({ firstname, lastname, email, password }) {
+export async function registerUser({ firstname, lastname, email, password }: {
+  firstname: string,
+  lastname: string,
+  email: string,
+  password: string
+}) {
   const hashedPassword = await bcrypt.hash(password, 10)
 
   const result = await dbPostgres.query(
-    `INSERT INTO users (first_name, last_name, email, password)
+    `INSERT INTO "user" (firstname, lastname, email, password)
      VALUES ($1, $2, $3, $4) RETURNING id`,
     [firstname, lastname, email, hashedPassword]
   )
