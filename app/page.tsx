@@ -102,7 +102,7 @@ export default function Home() {
         {/* Mobile menu placeholder, could use DropdownMenu */}
         <div className="md:hidden flex items-center gap-2">
           <Button variant="outline" size="icon" aria-label="Open menu">
-            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="6" x2="20" y2="6" /><line x1="4" y1="18" x2="20" y2="18" /></svg>
           </Button>
         </div>
       </header>
@@ -118,7 +118,12 @@ export default function Home() {
         >
           <div className="w-64 h-64 bg-muted rounded-xl flex items-center justify-center shadow-inner">
             {/* Placeholder for hero image */}
-            <span className="text-5xl text-muted-foreground">👗</span>
+            <img
+              src="./LandingPage/hero.png"
+              alt="hero"
+              className="w-full h-full object-contain object-fill scale-x-[-1] rounded-xl"
+            />
+
           </div>
         </motion.div>
         {/* Right: Headline and CTA */}
