@@ -1,5 +1,16 @@
 "use client";
 import Image from "next/image";
+import { dbMongo } from "@/lib/dbMongo";
+export default async function Home() {
+  try{
+    await dbMongo();
+        console.log('✅ MongoDB is available.')
+
+  }
+  catch(error){
+    console.log("mongo connection not established" + error);
+    
+  }
 import "./globals.css";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
