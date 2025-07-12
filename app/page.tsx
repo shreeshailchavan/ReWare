@@ -1,102 +1,251 @@
+"use client";
 import Image from "next/image";
+import "./globals.css";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuLink,
+} from "@/components/ui/navigation-menu";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/card";
+import { StarIcon } from "@radix-ui/react-icons";
+import { Input } from "@/components/ui/input";
+
+const categories = [
+  { name: "Tops", icon: "👕" },
+  { name: "Bottoms", icon: "👖" },
+  { name: "Shoes", icon: "👟" },
+  { name: "Accessories", icon: "👜" },
+  { name: "Outerwear", icon: "🧥" },
+  { name: "Kids", icon: "🧒" },
+];
+
+const featuredItems = [
+  { name: "Denim Jacket", img: "/window.svg" },
+  { name: "Red Dress", img: "/file.svg" },
+  { name: "Sneakers", img: "/globe.svg" },
+  { name: "Wool Scarf", img: "/vercel.svg" },
+];
+
+const products = [
+  { name: "Blue Tee", img: "/next.svg", points: 10 },
+  { name: "Chinos", img: "/window.svg", points: 15 },
+  { name: "Boots", img: "/file.svg", points: 20 },
+  { name: "Cap", img: "/globe.svg", points: 5 },
+  { name: "Sweater", img: "/vercel.svg", points: 12 },
+  { name: "Kids Dress", img: "/next.svg", points: 8 },
+];
+
+const testimonials = [
+  {
+    name: "Alex P.",
+    feedback:
+      "Swapping on ReWear is so easy! I love giving my clothes a new home and earning points.",
+    rating: 5,
+  },
+  {
+    name: "Jamie L.",
+    feedback:
+      "A fantastic way to refresh my wardrobe sustainably. Highly recommend!",
+    rating: 5,
+  },
+];
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
+      {/* Header */}
+      <header className="w-full py-4 px-4 sm:px-8 flex items-center justify-between shadow-sm bg-background/80 sticky top-0 z-10">
+        <div className="flex items-center gap-2">
+          <span className="rounded-full bg-primary text-primary-foreground w-10 h-10 flex items-center justify-center text-xl font-bold shadow-sm">RW</span>
+          <span className="ml-2 text-lg font-semibold tracking-tight">ReWear</span>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        {/* Search Bar */}
+        <div className="flex-1 flex justify-center mx-4 max-w-md">
+          <Input
+            type="text"
+            placeholder="Search for clothing, brands, or categories..."
+            className="bg-white border border-input rounded-md px-4 py-2 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/30 text-base text-foreground placeholder:text-muted-foreground w-full"
+            style={{ minWidth: 180, maxWidth: 340 }}
+            aria-label="Search"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        </div>
+        {/* Desktop Nav & Auth Buttons */}
+        <nav className="hidden md:flex items-center gap-2">
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuLink href="#" className="focus:outline-none">Home</NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink href="#browse">Browse</NavigationMenuLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+          <Button variant="ghost" className="ml-4 text-primary hover:bg-primary/10" style={{ color: '#4B9C8E' }}>Login</Button>
+          <Button className="ml-2 bg-accent text-accent-foreground hover:bg-accent/90" style={{ backgroundColor: '#F4A261', color: '#1F2937' }}>Sign Up</Button>
+        </nav>
+        {/* Mobile menu placeholder, could use DropdownMenu */}
+        <div className="md:hidden flex items-center gap-2">
+          <Button variant="outline" size="icon" aria-label="Open menu">
+            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+          </Button>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="w-full flex flex-col-reverse md:flex-row items-center justify-between gap-8 px-4 sm:px-8 py-10 md:py-20 bg-gradient-to-b from-background to-muted/40">
+        {/* Left: Image */}
+        <motion.div
+          className="w-full md:w-1/2 flex items-center justify-center"
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <div className="w-64 h-64 bg-muted rounded-xl flex items-center justify-center shadow-inner">
+            {/* Placeholder for hero image */}
+            <span className="text-5xl text-muted-foreground">👗</span>
+          </div>
+        </motion.div>
+        {/* Right: Headline and CTA */}
+        <motion.div
+          className="w-full md:w-1/2 flex flex-col items-center md:items-start gap-6"
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
         >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-center md:text-left">
+            Give Clothes a Second Life
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-md text-center md:text-left">
+            Join the ReWear community to swap unused clothes or redeem them for points. Refresh your wardrobe sustainably and effortlessly.
+          </p>
+          <div className="flex gap-4 mt-2">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+              <Button size="lg" className="shadow-md px-6 py-3 text-base">Start Swapping</Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+              <Button variant="outline" size="lg" className="shadow-md px-6 py-3 text-base">Browse Items</Button>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Carousel of Featured Items */}
+      <section className="w-full max-w-5xl mx-auto py-10 px-4 sm:px-8" id="featured">
+        <h2 className="text-2xl font-semibold mb-6">Featured Clothing</h2>
+        <Carousel opts={{ align: "start" }}>
+          <CarouselContent className="-ml-4">
+            {featuredItems.map((item, i) => (
+              <CarouselItem key={i} className="pl-4">
+                <motion.div
+                  className="bg-card rounded-xl shadow-md p-4 flex flex-col items-center justify-center min-w-[180px] min-h-[220px]"
+                  whileHover={{ scale: 1.04 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                >
+                  <Image src={item.img} alt={item.name} width={80} height={80} className="mb-4 rounded-lg object-contain" />
+                  <span className="font-medium text-lg">{item.name}</span>
+                </motion.div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </section>
+
+      {/* Categories Section */}
+      <section className="w-full max-w-5xl mx-auto py-10 px-4 sm:px-8" id="categories">
+        <h2 className="text-2xl font-semibold mb-6">Categories</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+          {categories.map((cat, i) => (
+            <motion.div
+              key={cat.name}
+              whileHover={{ scale: 1.06, boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}
+              whileTap={{ scale: 0.98 }}
+              className="cursor-pointer"
+            >
+              <Card className="items-center justify-center py-6 px-2 text-center hover:bg-accent transition-colors shadow-sm">
+                <div className="text-3xl mb-2">{cat.icon}</div>
+                <div className="font-medium text-base">{cat.name}</div>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Product Listings */}
+      <section className="w-full max-w-5xl mx-auto py-10 px-4 sm:px-8" id="products">
+        <h2 className="text-2xl font-semibold mb-6">Product Listings</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {products.map((prod, i) => (
+            <motion.div
+              key={prod.name}
+              whileHover={{ scale: 1.03, boxShadow: "0 4px 24px rgba(0,0,0,0.10)" }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Card className="flex flex-col items-center p-4 gap-3 shadow-sm hover:shadow-md transition-shadow">
+                <Image src={prod.img} alt={prod.name} width={70} height={70} className="rounded-lg object-contain mb-2" />
+                <div className="font-semibold text-lg">{prod.name}</div>
+                <div className="flex gap-2 items-center mt-1">
+                  <span className="bg-primary/10 text-primary px-2 py-0.5 rounded text-xs font-medium">{prod.points} pts</span>
+                  <span className="bg-accent text-accent-foreground px-2 py-0.5 rounded text-xs font-medium">Swap</span>
+                </div>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Testimonials / Impact Metrics */}
+      <section className="w-full max-w-5xl mx-auto py-10 px-4 sm:px-8" id="testimonials">
+        <h2 className="text-2xl font-semibold mb-6">What Our Users Say</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {testimonials.map((t, i) => (
+            <motion.div
+              key={t.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+            >
+              <Card className="p-6 shadow-md flex flex-col gap-3">
+                <CardHeader className="flex flex-row items-center gap-3">
+                  <span className="bg-primary text-primary-foreground w-10 h-10 flex items-center justify-center rounded-full text-lg font-bold">
+                    {t.name[0]}
+                  </span>
+                  <CardTitle className="text-lg font-semibold">{t.name}</CardTitle>
+                </CardHeader>
+                <CardContent className="text-base text-muted-foreground">{t.feedback}</CardContent>
+                <div className="flex gap-1 mt-2">
+                  {[...Array(t.rating)].map((_, idx) => (
+                    <StarIcon key={idx} className="text-yellow-400 w-5 h-5" />
+                  ))}
+                </div>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer w-full py-8 px-4 sm:px-8 text-center text-sm mt-auto">
+        &copy; {new Date().getFullYear()} ReWear – Community Clothing Exchange. All rights reserved.
       </footer>
     </div>
   );
