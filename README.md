@@ -1,3 +1,3 @@
-MONG_API = mongodb+srv://root:<root>@cluster0.qkz3kxu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-POSTGRE_API = https://lqqtpugtjmijredkxgql.supabase.co
+MONGO_URI = mongodb+srv://root:root@cluster0.qkz3kxu.mongodb.net/rewearchats?retryWrites=true&w=majority&appName=Cluster0
+SUPABASE_POSTGRES_URL = https://lqqtpugtjmijredkxgql.supabase.co
 POSTGRE_API_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxxcXRwdWd0am1panJlZGt4Z3FsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyOTc1MjUsImV4cCI6MjA2Nzg3MzUyNX0.GpX3AjCPJkSYbRTlWJa6ZIXcZnP2isjP57gBZlSmILU
