@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const categories = [
-  { name: "Tops", icon: "👕" },
+  { name: "Tops", img: "/LandingPage/top.webp" },
   { name: "Bottoms", icon: "👖" },
   { name: "Shoes", icon: "👟" },
   { name: "Accessories", icon: "👜" },
@@ -43,10 +43,9 @@ const categories = [
 ];
 
 const featuredItems = [
-  { name: "Denim Jacket", img: "/window.svg" },
-  { name: "Red Dress", img: "/file.svg" },
-  { name: "Sneakers", img: "/globe.svg" },
-  { name: "Wool Scarf", img: "/vercel.svg" },
+  { name: "Denim Jacket", img: "/LandingPage/carosial-1.png" },
+  { name: "Red Dress", img: "/LandingPage/Red_Dress.jpg" }
+
 ];
 
 const products = [
@@ -88,7 +87,7 @@ export default function Home() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon" aria-label="Open menu">
-                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="6" x2="20" y2="6" /><line x1="4" y1="18" x2="20" y2="18" /></svg>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 p-2">
@@ -189,14 +188,21 @@ export default function Home() {
             {featuredItems.map((item, i) => (
               <CarouselItem key={i} className="pl-4">
                 <motion.div
-                  className="bg-card rounded-xl shadow-md p-4 flex flex-col items-center justify-center min-w-[180px] min-h-[220px]"
+                  className="bg-card rounded-xl shadow-md p-4 flex flex-col items-center justify-center min-w-[120px] min-h-[320px]"
                   whileHover={{ scale: 1.04 }}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                 >
-                  <Image src={item.img} alt={item.name} width={80} height={80} className="mb-4 rounded-lg object-contain" />
-                  <span className="font-medium text-lg">{item.name}</span>
+                  <div className="w-[100%] h-[100%]relative mb-4">
+                    <Image
+                      src={item.img}
+                      alt={item.name}
+                      fill
+                      className="rounded-xl "
+                    />
+                  </div>
+                  <span className="font-medium text-lg text-center">{item.name}</span>
                 </motion.div>
               </CarouselItem>
             ))}
