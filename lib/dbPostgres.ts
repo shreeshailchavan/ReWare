@@ -1,4 +1,5 @@
 // lib/dbPostgres.ts
+"use server";
 import { Pool } from 'pg'
 
 const connectionString = process.env.SUPABASE_POSTGRES_URL as string

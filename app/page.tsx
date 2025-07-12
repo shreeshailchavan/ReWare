@@ -86,66 +86,72 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
       {/* Header */}
-      <header className="w-full py-4 px-4 sm:px-8 flex flex-col md:flex-row md:items-center md:justify-between shadow-sm bg-background/80 sticky top-0 z-10">
-        <div className="w-full flex items-center justify-between md:justify-start gap-2">
-          <div className="flex items-center gap-2">
-            <span className="rounded-full bg-primary text-primary-foreground w-10 h-10 flex items-center justify-center text-xl font-bold shadow-sm">RW</span>
-            <span className="ml-2 text-lg font-semibold tracking-tight">ReWear</span>
-          </div>
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" aria-label="Open menu">
-                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 p-2">
-                <DropdownMenuItem asChild>
-                  <a href="#" className="block w-full py-2 px-3 rounded hover:bg-muted focus:bg-muted focus:outline-none">Home</a>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <a href="#browse" className="block w-full py-2 px-3 rounded hover:bg-muted focus:bg-muted focus:outline-none">Browse</a>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Button variant="ghost" className="w-full justify-start text-primary hover:bg-primary/10" style={{ color: '#4B9C8E' }}>Login</Button>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Button className="w-full justify-start bg-accent text-accent-foreground hover:bg-accent/90 mt-1" style={{ backgroundColor: '#F4A261', color: '#1F2937' }}>Sign Up</Button>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+  <header className="w-full sticky top-0 z-10 bg-background/80 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className="max-w-screen-xl mx-auto flex flex-wrap items-center justify-between gap-4 px-4 sm:px-6 py-3">
+      {/* Logo */}
+      <div className="flex items-center gap-2 flex-shrink-0">
+        <span className="rounded-full bg-primary text-primary-foreground w-10 h-10 flex items-center justify-center text-xl font-bold shadow-sm">RW</span>
+        <span className="text-lg font-semibold tracking-tight">ReWear</span>
+      </div>
+
+      {/* Search bar */}
+      <div className="w-full order-3 md:order-none md:w-auto flex-1 md:flex-none">
+        <div className="relative max-w-md mx-auto md:mx-0">
+          <Input
+            type="text"
+            placeholder="Search for clothing, brands, or categories..."
+            className="bg-white border border-input rounded-md px-4 py-2 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/30 text-base text-foreground placeholder:text-muted-foreground w-full pl-10"
+            aria-label="Search"
+          />
+          <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5 pointer-events-none" />
         </div>
-        {/* Search Bar (mobile below logo, desktop centered) */}
-        <div className="w-full md:flex-1 flex md:justify-center md:mx-4 max-w-md mt-3 md:mt-0 order-2 md:order-none">
-          <div className="relative w-full">
-            <Input
-              type="text"
-              placeholder="Search for clothing, brands, or categories..."
-              className="bg-white border border-input rounded-md px-4 py-2 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/30 text-base text-foreground placeholder:text-muted-foreground w-full pl-10"
-              aria-label="Search"
-            />
-            <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5 pointer-events-none" aria-hidden="true" />
-          </div>
-        </div>
-        {/* Desktop Nav & Auth Buttons */}
-        <nav className="hidden md:flex items-center gap-2 flex-shrink-0">
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuLink href="#" className="focus:outline-none">Home</NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink href="#browse">Browse</NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-          <Button variant="ghost" className="ml-4 text-primary hover:bg-primary/10" style={{ color: '#4B9C8E' }}>Login</Button>
-          <Button className="ml-2 bg-accent text-accent-foreground hover:bg-accent/90" style={{ backgroundColor: '#F4A261', color: '#1F2937' }}>Sign Up</Button>
-        </nav>
-      </header>
+      </div>
+
+      {/* Desktop Nav Links */}
+      <nav className="hidden md:flex items-center gap-4">
+        <NavigationMenu>
+          <NavigationMenuList className="flex gap-4">
+            <NavigationMenuItem>
+              <NavigationMenuLink href="#" className="text-sm hover:text-primary transition-colors">Home</NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink href="#browse" className="text-sm hover:text-primary transition-colors">Browse</NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+        <Button variant="ghost" className="text-primary hover:bg-primary/10" style={{ color: '#4B9C8E' }}>Login</Button>
+        <Button className="bg-accent text-accent-foreground hover:bg-accent/90" style={{ backgroundColor: '#F4A261', color: '#1F2937' }}>Sign Up</Button>
+      </nav>
+
+      {/* Mobile Menu Button */}
+      <div className="md:hidden">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="icon" aria-label="Open menu">
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56 p-2">
+            <DropdownMenuItem asChild>
+              <a href="#" className="block w-full py-2 px-3 rounded hover:bg-muted focus:bg-muted focus:outline-none">Home</a>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <a href="#browse" className="block w-full py-2 px-3 rounded hover:bg-muted focus:bg-muted focus:outline-none">Browse</a>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Button variant="ghost" className="w-full justify-start text-primary hover:bg-primary/10" style={{ color: '#4B9C8E' }}>Login</Button>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Button className="w-full justify-start bg-accent text-accent-foreground hover:bg-accent/90 mt-1" style={{ backgroundColor: '#F4A261', color: '#1F2937' }}>Sign Up</Button>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </div>
+  </header>
+
+
 
       {/* Hero Section */}
       <section className="w-full flex flex-col-reverse md:flex-row items-center justify-between gap-8 px-4 sm:px-8 py-10 md:py-20 bg-gradient-to-b from-background to-muted/40">
