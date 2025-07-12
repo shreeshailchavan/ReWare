@@ -24,6 +24,14 @@ import {
 } from "@/components/ui/card";
 import { StarIcon } from "@radix-ui/react-icons";
 import { Input } from "@/components/ui/input";
+import { SearchIcon, FacebookIcon, TwitterIcon, InstagramIcon } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 
 const categories = [
   { name: "Tops", icon: "👕" },
@@ -69,23 +77,52 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
       {/* Header */}
-      <header className="w-full py-4 px-4 sm:px-8 flex items-center justify-between shadow-sm bg-background/80 sticky top-0 z-10">
-        <div className="flex items-center gap-2">
-          <span className="rounded-full bg-primary text-primary-foreground w-10 h-10 flex items-center justify-center text-xl font-bold shadow-sm">RW</span>
-          <span className="ml-2 text-lg font-semibold tracking-tight">ReWear</span>
+      <header className="w-full py-4 px-4 sm:px-8 flex flex-col md:flex-row md:items-center md:justify-between shadow-sm bg-background/80 sticky top-0 z-10">
+        <div className="w-full flex items-center justify-between md:justify-start gap-2">
+          <div className="flex items-center gap-2">
+            <span className="rounded-full bg-primary text-primary-foreground w-10 h-10 flex items-center justify-center text-xl font-bold shadow-sm">RW</span>
+            <span className="ml-2 text-lg font-semibold tracking-tight">ReWear</span>
+          </div>
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon" aria-label="Open menu">
+                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 p-2">
+                <DropdownMenuItem asChild>
+                  <a href="#" className="block w-full py-2 px-3 rounded hover:bg-muted focus:bg-muted focus:outline-none">Home</a>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <a href="#browse" className="block w-full py-2 px-3 rounded hover:bg-muted focus:bg-muted focus:outline-none">Browse</a>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Button variant="ghost" className="w-full justify-start text-primary hover:bg-primary/10" style={{ color: '#4B9C8E' }}>Login</Button>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Button className="w-full justify-start bg-accent text-accent-foreground hover:bg-accent/90 mt-1" style={{ backgroundColor: '#F4A261', color: '#1F2937' }}>Sign Up</Button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
-        {/* Search Bar */}
-        <div className="flex-1 flex justify-center mx-4 max-w-md">
-          <Input
-            type="text"
-            placeholder="Search for clothing, brands, or categories..."
-            className="bg-white border border-input rounded-md px-4 py-2 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/30 text-base text-foreground placeholder:text-muted-foreground w-full"
-            style={{ minWidth: 180, maxWidth: 340 }}
-            aria-label="Search"
-          />
+        {/* Search Bar (mobile below logo, desktop centered) */}
+        <div className="w-full md:flex-1 flex md:justify-center md:mx-4 max-w-md mt-3 md:mt-0 order-2 md:order-none">
+          <div className="relative w-full">
+            <Input
+              type="text"
+              placeholder="Search for clothing, brands, or categories..."
+              className="bg-white border border-input rounded-md px-4 py-2 shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/30 text-base text-foreground placeholder:text-muted-foreground w-full pl-10"
+              aria-label="Search"
+            />
+            <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5 pointer-events-none" aria-hidden="true" />
+          </div>
         </div>
         {/* Desktop Nav & Auth Buttons */}
-        <nav className="hidden md:flex items-center gap-2">
+        <nav className="hidden md:flex items-center gap-2 flex-shrink-0">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -99,12 +136,6 @@ export default function Home() {
           <Button variant="ghost" className="ml-4 text-primary hover:bg-primary/10" style={{ color: '#4B9C8E' }}>Login</Button>
           <Button className="ml-2 bg-accent text-accent-foreground hover:bg-accent/90" style={{ backgroundColor: '#F4A261', color: '#1F2937' }}>Sign Up</Button>
         </nav>
-        {/* Mobile menu placeholder, could use DropdownMenu */}
-        <div className="md:hidden flex items-center gap-2">
-          <Button variant="outline" size="icon" aria-label="Open menu">
-            <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
-          </Button>
-        </div>
       </header>
 
       {/* Hero Section */}
@@ -200,9 +231,11 @@ export default function Home() {
               whileHover={{ scale: 1.03, boxShadow: "0 4px 24px rgba(0,0,0,0.10)" }}
               whileTap={{ scale: 0.98 }}
             >
-              <Card className="flex flex-col items-center p-4 gap-3 shadow-sm hover:shadow-md transition-shadow">
-                <Image src={prod.img} alt={prod.name} width={70} height={70} className="rounded-lg object-contain mb-2" />
-                <div className="font-semibold text-lg">{prod.name}</div>
+              <Card className="flex flex-col items-center p-5 gap-3 shadow-sm hover:shadow-md transition-shadow h-72 min-h-[18rem] max-h-[20rem] bg-white border border-border">
+                <div className="w-full flex-1 flex items-center justify-center">
+                  <Image src={prod.img} alt={prod.name} width={90} height={90} className="rounded-lg object-contain mb-2 max-h-24" />
+                </div>
+                <div className="font-semibold text-lg text-center">{prod.name}</div>
                 <div className="flex gap-2 items-center mt-1">
                   <span className="bg-primary/10 text-primary px-2 py-0.5 rounded text-xs font-medium">{prod.points} pts</span>
                   <span className="bg-accent text-accent-foreground px-2 py-0.5 rounded text-xs font-medium">Swap</span>
@@ -244,8 +277,40 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="footer w-full py-8 px-4 sm:px-8 text-center text-sm mt-auto">
-        &copy; {new Date().getFullYear()} ReWear – Community Clothing Exchange. All rights reserved.
+      <footer className="footer w-full py-10 px-4 sm:px-8 mt-auto border-t border-border">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
+          <div className="flex flex-col items-center md:items-start gap-2 md:max-w-xs">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="rounded-full bg-primary text-primary-foreground w-8 h-8 flex items-center justify-center text-lg font-bold shadow-sm">RW</span>
+              <span className="text-lg font-semibold tracking-tight text-foreground">ReWear</span>
+            </div>
+            <p className="text-sm text-muted-foreground text-center md:text-left">A community-driven platform for swapping, purchasing, and recycling clothing. Make fashion sustainable and accessible for everyone.</p>
+            <div className="flex gap-3 mt-2">
+              <a href="#" aria-label="Facebook" className="hover:text-primary transition-colors"><FacebookIcon className="w-5 h-5" /></a>
+              <a href="#" aria-label="Twitter" className="hover:text-primary transition-colors"><TwitterIcon className="w-5 h-5" /></a>
+              <a href="#" aria-label="Instagram" className="hover:text-primary transition-colors"><InstagramIcon className="w-5 h-5" /></a>
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-center md:items-start">
+            <div className="flex flex-col gap-2">
+              <span className="font-semibold text-foreground mb-1">Navigation</span>
+              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Home</a>
+              <a href="#browse" className="text-sm text-muted-foreground hover:text-primary transition-colors">Browse</a>
+              <a href="#categories" className="text-sm text-muted-foreground hover:text-primary transition-colors">Categories</a>
+              <a href="#products" className="text-sm text-muted-foreground hover:text-primary transition-colors">Products</a>
+              <a href="#testimonials" className="text-sm text-muted-foreground hover:text-primary transition-colors">Testimonials</a>
+            </div>
+            <div className="flex flex-col gap-2">
+              <span className="font-semibold text-foreground mb-1">About</span>
+              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Us</a>
+              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact</a>
+              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</a>
+            </div>
+          </div>
+        </div>
+        <div className="text-center text-xs text-muted-foreground mt-8">
+          &copy; {new Date().getFullYear()} ReWear – Community Clothing Exchange. All rights reserved.
+        </div>
       </footer>
     </div>
   );
