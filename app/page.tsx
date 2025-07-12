@@ -1,5 +1,7 @@
 "use client";
 import Image from "next/image";
+import { dbMongo } from "@/lib/dbMongo";
+
 import "./globals.css";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -32,6 +34,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { dbPostgres } from "@/lib/dbPostgres";
 
 const categories = [
   { name: "Tops", img: "/LandingPage/top.webp" },
@@ -72,7 +75,13 @@ const testimonials = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  await dbMongo();
+  console.log('mongo connection success');
+  
+  if(dbPostgres) console.log('postgre conn success');
+
+  
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
       {/* Header */}
@@ -87,7 +96,7 @@ export default function Home() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon" aria-label="Open menu">
-                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="6" x2="20" y2="6" /><line x1="4" y1="18" x2="20" y2="18" /></svg>
+                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 p-2">
