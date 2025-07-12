@@ -1,7 +1,5 @@
 "use client";
 import Image from "next/image";
-import { dbMongo } from "@/lib/dbMongo";
-
 import "./globals.css";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -34,10 +32,9 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { dbPostgres } from "@/lib/dbPostgres";
 
 const categories = [
-  { name: "Tops", img: "/LandingPage/top.webp" },
+  { name: "Tops", icon: "👕" },
   { name: "Bottoms", icon: "👖" },
   { name: "Shoes", icon: "👟" },
   { name: "Accessories", icon: "👜" },
@@ -46,8 +43,8 @@ const categories = [
 ];
 
 const featuredItems = [
-  { name: "Denim Jacket", img: "/LandingPage/carosial-1.png" },
-  { name: "Red Dress", img: "/LandingPage/Red_Dress.jpg" }
+  { name: "Denim Jacket", img: "/LandingPage/carousel-1.jpg" },
+  { name: "Red Dress", img: "/LandingPage/carousel-2.jpg" }
 
 ];
 
@@ -75,13 +72,7 @@ const testimonials = [
   },
 ];
 
-export default async function Home() {
-  await dbMongo();
-  console.log('mongo connection success');
-  
-  if(dbPostgres) console.log('postgre conn success');
-
-  
+export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
       {/* Header */}
@@ -96,7 +87,7 @@ export default async function Home() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon" aria-label="Open menu">
-                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu"><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="6" x2="20" y2="6" /><line x1="4" y1="18" x2="20" y2="18" /></svg>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 p-2">
@@ -203,15 +194,15 @@ export default async function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                 >
-                  <div className="w-[100%] h-[100%]relative mb-4">
+                  <div className="relative w-full h-64 mb-4">
                     <Image
                       src={item.img}
                       alt={item.name}
                       fill
-                      className="rounded-xl "
+                      className="rounded-xl object-cover"
                     />
                   </div>
-                  <span className="font-medium text-lg text-center">{item.name}</span>
+
                 </motion.div>
               </CarouselItem>
             ))}
