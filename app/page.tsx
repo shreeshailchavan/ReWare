@@ -1,5 +1,7 @@
 "use client";
 import Image from "next/image";
+import { dbMongo } from "@/lib/dbMongo";
+
 import "./globals.css";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -32,6 +34,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { dbPostgres } from "@/lib/dbPostgres";
 
 const categories = [
   { name: "Tops", icon: "👕" },
@@ -73,7 +76,13 @@ const testimonials = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  await dbMongo();
+  console.log('mongo connection success');
+  
+  if(dbPostgres) console.log('postgre conn success');
+
+  
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
       {/* Header */}
